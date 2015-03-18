@@ -2,7 +2,7 @@
 @base-font-size-px: 10; // root's font size. @base-font-size-px MUST ME AN INTEGER.
 
 
-@pxtorem-js-function: ~`pxtorem = function(px){ if (typeof rmxsBaseFontSize == 'undefined')  rmxsBaseFontSize = @{base-font-size-px}; return (parseInt(px.replace(/(^\d+)(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem') }`;
+@pxtorem-js-function: ~`pxtorem = function(px){ if (typeof rmxsBaseFontSize == 'undefined')  rmxsBaseFontSize = @{base-font-size-px}; return (parseFloat(px.replace(/(^\d+)(\.\d{1,2})?$(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem') }`;
 
 
 // ===== FONT MIXINS =====
@@ -40,7 +40,7 @@
   @processing: ~`(function(){ var arg = "@{arguments}".replace("[","").replace("]","") || "0"; if( !/^\w*%?([\s])/.test(arg) ) { arg = arg.replace(/,/g," ").replace(/\s+/g,' ') } return arg; })()`;
 
 // converting to rem-s
-  @remified: ~`(function(){ if (typeof rmxsBaseFontSize == 'undefined') rmxsBaseFontSize = @{base-font-size-px}; var arg = "@{processing}"; var argArray = arg.split(' '); for(var i=0;i<argArray.length;i++){if (/px/i.test(argArray[i])) {argArray[i] = parseInt(argArray[i].replace(/(^\d+)(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem';}} return argArray.join(' ');})()`;
+  @remified: ~`(function(){ if (typeof rmxsBaseFontSize == 'undefined') rmxsBaseFontSize = @{base-font-size-px}; var arg = "@{processing}"; var argArray = arg.split(' '); for(var i=0;i<argArray.length;i++){if (/px/i.test(argArray[i])) {argArray[i] = parseFloat(argArray[i].replace(/(^\d+)(\.\d{1,2})?$(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem';}} return argArray.join(' ');})()`;
 
   margin: @processing;
   margin: @remified;
@@ -89,7 +89,7 @@
   @processing: ~`(function(){ var arg = "@{arguments}".replace("[","").replace("]","") || "0"; if( !/^\w*%?([\s])/.test(arg) ) { arg = arg.replace(/,/g," ").replace(/\s+/g,' ') } return arg; })()`;
 
   // converting to rem-s
-  @remified: ~`(function(){ if (typeof rmxsBaseFontSize == 'undefined') rmxsBaseFontSize = @{base-font-size-px}; var arg = "@{processing}"; var argArray = arg.split(' '); for(var i=0;i<argArray.length;i++){if (/px/i.test(argArray[i])) {argArray[i] = parseInt(argArray[i].replace(/(^\d+)(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem';}} return argArray.join(' '); })()`;
+  @remified: ~`(function(){ if (typeof rmxsBaseFontSize == 'undefined') rmxsBaseFontSize = @{base-font-size-px}; var arg = "@{processing}"; var argArray = arg.split(' '); for(var i=0;i<argArray.length;i++){if (/px/i.test(argArray[i])) {argArray[i] = parseFloat(argArray[i].replace(/(^\d+)(\.\d{1,2})?$(.+$)/i,'$1')) / rmxsBaseFontSize + 'rem';}} return argArray.join(' '); })()`;
 
   padding: @processing;
   padding: @remified;
